@@ -1,3 +1,18 @@
+const createEl = (arr) => {
+  const htmlEl = arr.map((el) => `<span class="btn">${el}</span>`);
+  return htmlEl.join(" ");
+};
+
+const manageSpinner = (status) => {
+  if (status == true) {
+    document.getElementById("spinner").classList.remove("hidden");
+    document.getElementById("word-container").classList.add("hidden");
+  } else {
+    document.getElementById("word-container").classList.remove("hidden");
+    document.getElementById("spinner").classList.add("hidden");
+  }
+};
+
 const loadLessons = () => {
   const url = `https://openapi.programming-hero.com/api/levels/all`;
   fetch(url)
@@ -11,6 +26,7 @@ const removeActive = () => {
 };
 
 const loadLevelWord = (id) => {
+  manageSpinner(true);
   const url = `https://openapi.programming-hero.com/api/level/${id}`;
   fetch(url)
     .then((res) => res.json())
@@ -18,9 +34,46 @@ const loadLevelWord = (id) => {
       removeActive(); // reomove all active class
       const clickBtn = document.getElementById(`lesson-btn-${id}`);
       clickBtn.classList.add("active"); // add active class only click element
-      console.log(clickBtn);
       displayLevelWord(data.data);
     });
+};
+
+const loadWordDetails = async (id) => {
+  const url = `https://openapi.programming-hero.com/api/word/${id}`;
+  const res = await fetch(url);
+  const details = await res.json();
+  displayWordDetails(details.data);
+};
+
+const displayWordDetails = (word) => {
+  console.log(word);
+  const detailsContainerEl = document.getElementById("details-container");
+  detailsContainerEl.innerHTML = `
+           <div class="">
+            <h2 class="text-2xl font-semibold">
+               ${word.word} (<i class="fa-solid fa-microphone"></i> : ${
+    word.pronunciation
+  })
+            </h2>
+          </div>
+          <div class="space-y-2">
+            <h2 class="text-2xl font-semibold">Meaning</h2>
+            <p> ${word.meaning}</p>
+          </div>
+          <div class="">
+            <h2 class="font-semibold">Example</h2>
+            <p>
+              ${word.sentence}
+            </p>
+          </div>
+          <div class="space-y-3">
+            <h2 class="font-semibold">Synonames</h2>
+            <div class="flex gap-3 items-center">
+           ${createEl(word.synonyms)}
+            </div>
+         </div>
+  `;
+  document.getElementById("word_modal").showModal();
 };
 
 const displayLevelWord = (words) => {
@@ -35,6 +88,7 @@ const displayLevelWord = (words) => {
         <h2 class="text-4xl font-semibold mt-4">নেক্সট Lesson এ যান</h2>
      </div>
     `;
+    manageSpinner(false);
     return;
   }
 
@@ -52,7 +106,9 @@ const displayLevelWord = (words) => {
                   }</h3>
                  </div>
                  <div class="flex justify-between mt-8">
-                   <button onclick="my_modal_5.showModal()" class="btn bg-[#1A91FF10] hover:bg-[#1A91FF80]">
+                   <button onclick="loadWordDetails(${
+                     word.id
+                   })" class="btn bg-[#1A91FF10] hover:bg-[#1A91FF80]">
                       <i class="fa-solid fa-circle-info"></i>
                     </button>
                     <button class="btn bg-[#1A91FF10] hover:bg-[#1A91FF80]">
@@ -63,6 +119,7 @@ const displayLevelWord = (words) => {
             `;
     wordContainerEl.appendChild(wordDiv);
   });
+  manageSpinner(false);
 };
 
 const displayLessons = (lessons) => {
@@ -79,4 +136,22 @@ const displayLessons = (lessons) => {
     levelContainerEl.appendChild(btnDiv);
   }
 };
+
 loadLessons();
+
+document.getElementById("btn-search").addEventListener("click", () => {
+  removeActive();
+  const input = document.getElementById("input-search");
+  const searchValue = input.value.trim().toLowerCase();
+  const url = `https://openapi.programming-hero.com/api/words/all`;
+  fetch(url)
+    .then((res) => res.json())
+    .then((data) => {
+      const allWords = data.data;
+      const filterWords = allWords.filter((word) =>
+        word.word.toLowerCase().includes(searchValue)
+      );
+      console.log(filterWords);
+      displayLevelWord(filterWords);
+    });
+});
