@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="./assets/logo.png" type="image/x-icon" />
+    <!-- google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Fontawesome CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- tailwind cdn link -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@5"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <!-- <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script> -->
+    <style>
+      .font-bangla {
+        font-family: "Hind Siliguri", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+      }
+      .inter {
+        font-family: "Inter", sans-serif;
+        font-style: normal;
+      }
+      .active {
+        color: white;
+        background-color: #422ad5;
+      }
+    </style>
+    <title>English Janala</title>
+  </head>
+  <body class="inter">
+    <header>
+      <div class="navbar shadow-sm bg-blue-50">
+        <div class="flex-1">
+          <a class="btn btn-ghost text-xl flex items-center">
+            <span>English</span> <img src="./assets/logo.png" alt="" />
+            <span class="font-bangla">জানালা</span>
+          </a>
+        </div>
+        <div class="flex-none">
+          <ul class="menu menu-horizontal px-1 space-x-4">
+            <li>
+              <button class="btn btn-outline btn-primary">
+                <i class="fa-solid fa-circle-question"></i> FAQ
+              </button>
+            </li>
+            <li>
+              <button class="btn btn-outline btn-primary">
+                <i class="fa-brands fa-leanpub"></i> Learn
+              </button>
+            </li>
+            <li>
+              <button class="btn btn-outline btn-primary">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </header>
+    <!-- Banner section -->
+    <section
+      class="flex flex-col-reverse md:flex-row justify-between items-center py-10 w-11/12 mx-auto"
+    >
+      <div class="content flex-1 text-center md:text-left">
+        <h2 class="text-3xl md:text-5xl font-bold mb-4">
+          <span class="text-sky-500">English</span> Easy
+        </h2>
+        <p class="font-bangla">
+          আজ থেকেই আপনার ভাষা শেখার যাত্রা শুরু করুন। আপনি যদি নতুন হন অথবা
+          আপনার দক্ষতা বাড়াতে চান, আমাদের Interactive Lessons আপনাকে নিয়ে যাবে
+          অন্য একটি Level এ
+        </p>
+      </div>
+      <div class="img flex-1">
+        <img src="./assets/hero-student.png" alt="" />
+      </div>
+    </section>
+    <!-- Lean Vocabularies -->
+    <section>
+      <div class="text-center pb-10">
+        <h2 class="text-3xl md:text-5xl font-bold mb-4">
+          <span class="text-sky-500">Let's </span> Learn Vocabularies
+        </h2>
+        <div
+          id="level-container"
+          class="flex justify-center gap-4 flex-wrap mt-8"
+        ></div>
+      </div>
+    </section>
+    <section
+      id="word-container"
+      class="bg-gray-100 p-10 w-11/12 mx-auto rounded-xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
+    >
+      <div class="text-center col-span-full">
+        <p class="font-bangla">আপনি এখনো কোন Lesson Select করেন ন</p>
+        <h2 class="text-4xl font-semibold mt-4">একটি Lesson Select করুন।</h2>
+      </div>
+    </section>
+
+    <!-- Open the modal using ID.showModal() method -->
+    <!-- <button class="btn" onclick="my_modal_5.showModal()">open modal</button> -->
+    <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle">
+      <div class="modal-box">
+        <h3 class="text-lg font-bold">Hello!</h3>
+        <p class="py-4">Press ESC key or click the button below to close</p>
+        <div class="modal-action">
+          <form method="dialog">
+            <!-- if there is a button in form, it will close the modal -->
+            <button class="btn">Close</button>
+          </form>
+        </div>
+      </div>
+    </dialog>
+
+    <script src="./script/index.js"></script>
+  </body>
+</html>
